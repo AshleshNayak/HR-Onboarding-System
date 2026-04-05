@@ -3,13 +3,13 @@
   display: flex;
   height: 100vh;
   font-family: "Inter", sans-serif;
-  background: #f4f6f9;
+  background: var(--bg-page);
 }
 
 /* Sidebar */
 .hr-sidebar {
   width: 220px;
-  background: #1a2f5a;
+  background: var(--primary);
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -55,13 +55,13 @@
 
 .hr-nav-item:hover {
   color: white;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .hr-nav-item.active {
   color: white;
-  background: rgba(255, 255, 255, 0.1);
-  border-left-color: #2196b6;
+  background: rgba(255, 255, 255, 0.15);
+  border-left-color: var(--accent);
 }
 
 .hr-nav-icon {
@@ -91,7 +91,7 @@
   background: rgba(255, 255, 255, 0.1);
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   font-size: 13px;
   margin-top: 12px;
@@ -115,7 +115,7 @@
 .hr-topbar {
   height: 60px;
   background: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-sm);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -123,12 +123,13 @@
   position: sticky;
   top: 0;
   z-index: 50;
+  border-bottom: 1px solid var(--border);
 }
 
 .hr-topbar-title {
   font-weight: 700;
   font-size: 20px;
-  color: #1a2f5a;
+  color: var(--text-primary);
   margin: 0;
 }
 
@@ -140,7 +141,7 @@
 
 .hr-search-input {
   padding: 8px 16px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border);
   border-radius: 20px;
   width: 250px;
   font-size: 14px;
@@ -149,21 +150,27 @@
 }
 
 .hr-search-input:focus {
-  border-color: #2196b6;
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(37,99,182,0.12);
 }
 
 .hr-bell-icon {
   font-size: 20px;
-  color: #666;
+  color: var(--text-secondary);
   cursor: pointer;
   position: relative;
+  transition: color 0.2s;
+}
+
+.hr-bell-icon:hover {
+  color: var(--primary-light);
 }
 
 .hr-avatar {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: #2196b6;
+  background: var(--primary-light);
   color: white;
   display: flex;
   align-items: center;
@@ -177,7 +184,7 @@
   flex: 1;
   overflow-y: auto;
   padding: 24px;
-  background: #f4f6f9;
+  background: var(--bg-page);
 }
 
 /* Dashboard Home Stats Cards */
@@ -190,31 +197,35 @@
 
 .hr-stat-card {
   background: white;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   padding: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-sm);
   border-left: 4px solid;
-  transition: transform 0.2s;
+  border-top: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  transition: all 0.2s;
 }
 
 .hr-stat-card:hover {
   transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .hr-stat-card.blue {
-  border-left-color: #2196b6;
+  border-left-color: var(--info);
 }
 
 .hr-stat-card.yellow {
-  border-left-color: #f9a825;
+  border-left-color: var(--warning);
 }
 
 .hr-stat-card.green {
-  border-left-color: #43a047;
+  border-left-color: var(--success);
 }
 
 .hr-stat-card.teal {
-  border-left-color: #00acc1;
+  border-left-color: var(--accent);
 }
 
 .hr-stat-icon {
@@ -225,13 +236,13 @@
 .hr-stat-value {
   font-size: 32px;
   font-weight: 700;
-  color: #1a2f5a;
+  color: var(--text-primary);
   margin: 8px 0;
 }
 
 .hr-stat-label {
   font-size: 14px;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 /* Candidate List */
@@ -252,11 +263,18 @@
 .hr-filter-input,
 .hr-filter-select {
   padding: 10px 14px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
   font-size: 14px;
   outline: none;
   background: white;
+  transition: all 0.15s;
+}
+
+.hr-filter-input:focus,
+.hr-filter-select:focus {
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(37,99,182,0.12);
 }
 
 .hr-filter-input {
@@ -270,10 +288,10 @@
 
 .hr-add-btn {
   padding: 10px 20px;
-  background: #2196b6;
+  background: var(--primary-light);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -282,14 +300,16 @@
 }
 
 .hr-add-btn:hover {
-  background: #1976a3;
+  background: var(--primary);
+  transform: translateY(-1px);
 }
 
 .hr-table-card {
   background: white;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
 }
 
 .hr-table {
@@ -298,7 +318,7 @@
 }
 
 .hr-table thead {
-  background: #f8f9fa;
+  background: #f8fafc;
 }
 
 .hr-table th {
@@ -306,16 +326,16 @@
   text-align: left;
   font-size: 13px;
   font-weight: 600;
-  color: #666;
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .hr-table td {
   padding: 16px;
-  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--border);
   font-size: 14px;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .hr-table tbody tr {
@@ -323,7 +343,7 @@
 }
 
 .hr-table tbody tr:hover {
-  background: #f8f9fa;
+  background: #f8fafc;
 }
 
 .hr-progress-bar-wrapper {
@@ -335,20 +355,20 @@
 .hr-progress-bar {
   width: 100px;
   height: 6px;
-  background: #e0e0e0;
+  background: var(--border);
   border-radius: 3px;
   overflow: hidden;
 }
 
 .hr-progress-fill {
   height: 100%;
-  background: #2196b6;
+  background: var(--primary-light);
   transition: width 0.3s;
 }
 
 .hr-progress-text {
   font-size: 13px;
-  color: #666;
+  color: var(--text-secondary);
   min-width: 35px;
 }
 
@@ -361,13 +381,13 @@
 }
 
 .hr-status-badge.not-started {
-  background: #e3f2fd;
-  color: #1976d2;
+  background: var(--primary-pale);
+  color: var(--info);
 }
 
 .hr-status-badge.in-progress {
-  background: #fff3e0;
-  color: #f57c00;
+  background: #fef3e0;
+  color: var(--warning);
 }
 
 .hr-status-badge.submitted {
@@ -376,21 +396,21 @@
 }
 
 .hr-status-badge.approved {
-  background: #e8f5e9;
-  color: #388e3c;
+  background: #e6f7ed;
+  color: var(--success);
 }
 
 .hr-status-badge.rejected {
-  background: #ffebee;
-  color: #d32f2f;
+  background: #fee;
+  color: var(--danger);
 }
 
 .hr-view-btn {
   padding: 6px 16px;
-  background: #f0f0f0;
-  color: #333;
-  border: none;
-  border-radius: 6px;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
   font-size: 13px;
   cursor: pointer;
   transition: all 0.2s;
@@ -400,39 +420,44 @@
 }
 
 .hr-view-btn:hover {
-  background: #e0e0e0;
+  background: var(--primary-pale);
+  border-color: var(--primary-light);
+  color: var(--primary);
 }
 
 .hr-pagination {
   padding: 16px;
   text-align: center;
   font-size: 14px;
-  color: #666;
-  border-top: 1px solid #f0f0f0;
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border);
 }
 
 /* Candidate Detail */
 .hr-breadcrumb {
   font-size: 14px;
-  color: #666;
+  color: var(--text-secondary);
   margin-bottom: 20px;
 }
 
 .hr-breadcrumb a {
-  color: #2196b6;
+  color: var(--primary-light);
   text-decoration: none;
+  transition: color 0.2s;
 }
 
 .hr-breadcrumb a:hover {
   text-decoration: underline;
+  color: var(--primary);
 }
 
 .hr-info-card {
   background: white;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   padding: 24px;
   margin-bottom: 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
 }
 
 .hr-candidate-header {
@@ -446,7 +471,7 @@
 .hr-candidate-name {
   font-size: 28px;
   font-weight: 700;
-  color: #1a2f5a;
+  color: var(--text-primary);
   margin: 0 0 12px 0;
 }
 
@@ -465,7 +490,7 @@
 
 .hr-info-label {
   font-size: 12px;
-  color: #666;
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   font-weight: 600;
@@ -473,14 +498,14 @@
 
 .hr-info-value {
   font-size: 15px;
-  color: #333;
+  color: var(--text-primary);
   font-weight: 500;
 }
 
 .hr-tabs {
   display: flex;
   gap: 8px;
-  border-bottom: 2px solid #f0f0f0;
+  border-bottom: 2px solid var(--border);
   margin-bottom: 24px;
 }
 
@@ -490,18 +515,18 @@
   border: none;
   font-size: 14px;
   font-weight: 600;
-  color: #666;
+  color: var(--text-secondary);
   cursor: pointer;
   position: relative;
   transition: all 0.2s;
 }
 
 .hr-tab:hover {
-  color: #2196b6;
+  color: var(--primary-light);
 }
 
 .hr-tab.active {
-  color: #2196b6;
+  color: var(--primary-light);
 }
 
 .hr-tab.active::after {
@@ -511,7 +536,7 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: #2196b6;
+  background: var(--primary-light);
 }
 
 .hr-tab-content {
@@ -528,10 +553,10 @@
 
 .hr-approve-all-btn {
   padding: 10px 20px;
-  background: #2196b6;
+  background: var(--primary-light);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -539,7 +564,8 @@
 }
 
 .hr-approve-all-btn:hover {
-  background: #1976a3;
+  background: var(--primary);
+  transform: translateY(-1px);
 }
 
 .hr-forms-grid {
@@ -550,24 +576,27 @@
 
 .hr-form-card {
   background: white;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   padding: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  border-left: 4px solid #e0e0e0;
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--border);
+  border-top: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
   transition: all 0.2s;
 }
 
 .hr-form-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 .hr-form-card.not-started {
-  border-left-color: #90caf9;
+  border-left-color: var(--info);
 }
 
 .hr-form-card.in-progress {
-  border-left-color: #ffb74d;
+  border-left-color: var(--warning);
 }
 
 .hr-form-card.submitted {
@@ -575,17 +604,17 @@
 }
 
 .hr-form-card.approved {
-  border-left-color: #66bb6a;
+  border-left-color: var(--success);
 }
 
 .hr-form-card.rejected {
-  border-left-color: #ef5350;
+  border-left-color: var(--danger);
 }
 
 .hr-form-title {
   font-size: 15px;
   font-weight: 600;
-  color: #1a2f5a;
+  color: var(--text-primary);
   margin-bottom: 12px;
 }
 
@@ -599,7 +628,7 @@
   flex: 1;
   padding: 8px;
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
@@ -611,8 +640,8 @@
 }
 
 .hr-action-btn.approve {
-  background: #e8f5e9;
-  color: #388e3c;
+  background: #e6f7ed;
+  color: var(--success);
 }
 
 .hr-action-btn.approve:hover {
@@ -620,8 +649,8 @@
 }
 
 .hr-action-btn.reject {
-  background: #ffebee;
-  color: #d32f2f;
+  background: #fee;
+  color: var(--danger);
 }
 
 .hr-action-btn.reject:hover {
@@ -629,8 +658,8 @@
 }
 
 .hr-action-btn.request {
-  background: #fff3e0;
-  color: #f57c00;
+  background: #fef3e0;
+  color: var(--warning);
 }
 
 .hr-action-btn.request:hover {
@@ -640,9 +669,10 @@
 /* HR Verification Form */
 .hr-verification-form {
   background: white;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   padding: 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
 }
 
 .hr-form-grid {
@@ -663,25 +693,26 @@
 }
 
 .hr-form-label {
-  font-size: 14px;
-  font-weight: 600;
-  color: #333;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
 }
 
 .hr-form-input,
 .hr-form-textarea {
-  padding: 10px 14px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
   font-size: 14px;
   font-family: "Inter", sans-serif;
   outline: none;
-  transition: all 0.2s;
+  transition: all 0.15s;
 }
 
 .hr-form-input:focus,
 .hr-form-textarea:focus {
-  border-color: #2196b6;
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(37,99,182,0.12);
 }
 
 .hr-form-textarea {
@@ -690,11 +721,11 @@
 }
 
 .hr-save-btn {
-  padding: 12px 24px;
-  background: #2196b6;
+  padding: 10px 24px;
+  background: var(--primary-light);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -702,15 +733,17 @@
 }
 
 .hr-save-btn:hover {
-  background: #1976a3;
+  background: var(--primary);
+  transform: translateY(-1px);
 }
 
 /* Approval History Timeline */
 .hr-timeline {
   background: white;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   padding: 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
 }
 
 .hr-timeline-item {
@@ -727,14 +760,14 @@
   top: 40px;
   bottom: -16px;
   width: 2px;
-  background: #e0e0e0;
+  background: var(--border);
 }
 
 .hr-timeline-dot {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: #2196b6;
+  background: var(--primary-light);
   flex-shrink: 0;
   margin-top: 4px;
 }
@@ -746,16 +779,16 @@
 .hr-timeline-action {
   font-size: 15px;
   font-weight: 600;
-  color: #1a2f5a;
+  color: var(--text-primary);
   margin-bottom: 4px;
 }
 
 .hr-timeline-meta {
   font-size: 13px;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 .hr-timeline-by {
   font-weight: 500;
-  color: #333;
+  color: var(--text-primary);
 }
