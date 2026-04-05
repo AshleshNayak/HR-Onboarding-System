@@ -10,6 +10,7 @@ function PassportDetailsForm() {
   const navigate = useNavigate()
 
   const [formStatus, setFormStatus] = useState('Pending')
+  const [showExitBanner, setShowExitBanner] = useState(false)
   const [formData, setFormData] = useState({
     hasPassport: 'No',
     passportNumber: '',
@@ -102,6 +103,11 @@ function PassportDetailsForm() {
     showToast('Passport details saved as draft')
   }
 
+  const handleSaveAndExit = () => {
+    handleSaveAsDraft()
+    navigate('/candidate/dashboard')
+  }
+
   const handleSubmit = () => {
     if (validateForm()) {
       // TODO: API call to POST /api/forms/passport-details/:candidateId with status: 'Submitted'
@@ -118,7 +124,13 @@ function PassportDetailsForm() {
     <div className="form-page-container">
       {/* Header */}
       <div className="form-page-header">
-        <button className="back-button" onClick={() => navigate(-1)}>
+        <button className="back-button" onClick={() => {
+          if (formStatus === 'Draft') {
+            setShowExitBanner(true)
+          } else {
+            navigate('/candidate/dashboard')
+          }
+        }}>
           ← Back
         </button>
         <h1>Passport Details</h1>
@@ -126,6 +138,21 @@ function PassportDetailsForm() {
           {formStatus}
         </span>
       </div>
+
+      {/* Exit Banner */}
+      {showExitBanner && (
+        <div className="exit-banner">
+          <p className="exit-banner-message">You have unsaved changes.</p>
+          <div className="exit-banner-actions">
+            <button className="btn-primary" onClick={handleSaveAndExit}>
+              Save as Draft
+            </button>
+            <button className="btn-link" onClick={() => navigate('/candidate/dashboard')}>
+              Leave without saving
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Content */}
       <div className="form-content">

@@ -42,6 +42,7 @@ function WorkExperienceForm() {
   
   const [errors, setErrors] = useState({})
   const [toast, setToast] = useState({ show: false, message: '' })
+  const [showExitBanner, setShowExitBanner] = useState(false)
 
   // TODO: GET /api/forms/work-experience/:candidateId — load existing data on mount
   useEffect(() => {
@@ -60,6 +61,11 @@ function WorkExperienceForm() {
     const newValue = type === 'checkbox' ? checked : value
     
     setFormData(prev => ({ ...prev, [name]: newValue }))
+    
+    // Mark as draft if user is editing and form was pending
+    if (formStatus === 'Pending') {
+      setFormStatus('Draft')
+    }
     
     // Clear error when user starts typing
     if (errors[name]) {
@@ -291,11 +297,30 @@ function WorkExperienceForm() {
 
   const isReadOnly = formStatus === 'Approved'
 
+  const handleBackClick = () => {
+    if (formStatus === 'Draft') {
+      setShowExitBanner(true)
+    } else {
+      navigate('/candidate/dashboard')
+    }
+  }
+
+  const handleSaveAndExit = () => {
+    handleSaveAsDraft()
+    setTimeout(() => {
+      navigate('/candidate/dashboard')
+    }, 500)
+  }
+
+  const handleLeaveWithoutSaving = () => {
+    navigate('/candidate/dashboard')
+  }
+
   return (
     <div className="work-experience-form">
       {/* Header Bar */}
       <div className="form-header-bar">
-        <button className="back-button" onClick={() => navigate(-1)}>
+        <button className="back-button" onClick={handleBackClick}>
           ← Back
         </button>
         <h1 className="form-title">Work Experience Details</h1>
@@ -303,6 +328,19 @@ function WorkExperienceForm() {
           {formStatus}
         </span>
       </div>
+
+      {/* Exit Confirmation Banner */}
+      {showExitBanner && (
+        <div className="exit-banner">
+          <span>You have unsaved changes. </span>
+          <button className="save-exit-button" onClick={handleSaveAndExit}>
+            Save as Draft
+          </button>
+          <button className="leave-button" onClick={handleLeaveWithoutSaving}>
+            Leave without saving
+          </button>
+        </div>
+      )}
 
       {/* Lock Banner */}
       {isReadOnly && (

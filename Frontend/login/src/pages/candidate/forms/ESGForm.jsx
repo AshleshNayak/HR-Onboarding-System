@@ -10,6 +10,7 @@ function ESGForm() {
   const navigate = useNavigate()
   
   const [formStatus, setFormStatus] = useState('Pending')
+  const [showExitBanner, setShowExitBanner] = useState(false)
   const [formData, setFormData] = useState({
     commuteType: '',
     vehicleType: '',
@@ -103,6 +104,11 @@ function ESGForm() {
     // })
   }
 
+  const handleSaveAndExit = () => {
+    handleSaveAsDraft()
+    navigate('/candidate/dashboard')
+  }
+
   const handleSubmit = () => {
     setFormStatus('Submitted')
     showToast('Form submitted successfully')
@@ -122,7 +128,13 @@ function ESGForm() {
     <div className="esg-form">
       {/* Header Bar */}
       <div className="form-header-bar">
-        <button className="back-button" onClick={() => navigate(-1)}>
+        <button className="back-button" onClick={() => {
+          if (formStatus === 'Draft') {
+            setShowExitBanner(true)
+          } else {
+            navigate('/candidate/dashboard')
+          }
+        }}>
           ← Back
         </button>
         <h1 className="form-title">ESG Information</h1>
@@ -130,6 +142,21 @@ function ESGForm() {
           {formStatus}
         </span>
       </div>
+
+      {/* Exit Banner */}
+      {showExitBanner && (
+        <div className="exit-banner">
+          <p className="exit-banner-message">You have unsaved changes.</p>
+          <div className="exit-banner-actions">
+            <button className="btn-primary" onClick={handleSaveAndExit}>
+              Save as Draft
+            </button>
+            <button className="btn-link" onClick={() => navigate('/candidate/dashboard')}>
+              Leave without saving
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Approved Lock Banner */}
       {isReadOnly && (

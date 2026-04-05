@@ -53,6 +53,7 @@ function EducationDetailsForm() {
   
   const [errors, setErrors] = useState({})
   const [toast, setToast] = useState({ show: false, message: '' })
+  const [showExitBanner, setShowExitBanner] = useState(false)
 
   // Generate year options (1980-2025)
   const yearOptions = []
@@ -75,6 +76,11 @@ function EducationDetailsForm() {
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
+    
+    // Mark as draft if user is editing and form was pending
+    if (formStatus === 'Pending') {
+      setFormStatus('Draft')
+    }
     
     // Clear error when user starts typing
     if (errors[name]) {
@@ -266,13 +272,32 @@ function EducationDetailsForm() {
     // })
   }
 
+  const handleBackClick = () => {
+    if (formStatus === 'Draft') {
+      setShowExitBanner(true)
+    } else {
+      navigate('/candidate/dashboard')
+    }
+  }
+
+  const handleSaveAndExit = () => {
+    handleSaveAsDraft()
+    setTimeout(() => {
+      navigate('/candidate/dashboard')
+    }, 500)
+  }
+
+  const handleLeaveWithoutSaving = () => {
+    navigate('/candidate/dashboard')
+  }
+
   const isReadOnly = formStatus === 'Approved'
 
   return (
     <div className="education-details-form">
       {/* Header Bar */}
       <div className="form-header-bar">
-        <button className="back-button" onClick={() => navigate(-1)}>
+        <button className="back-button" onClick={handleBackClick}>
           ← Back
         </button>
         <h1 className="form-title">Education Details</h1>
@@ -280,6 +305,19 @@ function EducationDetailsForm() {
           {formStatus}
         </span>
       </div>
+
+      {/* Exit Confirmation Banner */}
+      {showExitBanner && (
+        <div className="exit-banner">
+          <span>You have unsaved changes. </span>
+          <button className="save-exit-button" onClick={handleSaveAndExit}>
+            Save as Draft
+          </button>
+          <button className="leave-button" onClick={handleLeaveWithoutSaving}>
+            Leave without saving
+          </button>
+        </div>
+      )}
 
       {/* Approved Lock Banner */}
       {isReadOnly && (

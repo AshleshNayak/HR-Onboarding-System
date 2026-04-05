@@ -10,7 +10,7 @@ function ContactInfoForm() {
     <div style={{ padding: '20px' }}>
       <h2>Contact Info Form</h2>
       <p>Coming Soon</p>
-      <button onClick={() => navigate(-1)}>Back</button>
+      <button onClick={() => navigate('/candidate/dashboard')}>Back</button>
     </div>
   )
 }

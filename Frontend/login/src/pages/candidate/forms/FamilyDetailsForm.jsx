@@ -27,6 +27,7 @@ function FamilyDetailsForm() {
   })
   
   const [toast, setToast] = useState({ show: false, message: '' })
+  const [showExitBanner, setShowExitBanner] = useState(false)
 
   // TODO: GET /api/forms/family-details/:candidateId — load existing data on mount
   useEffect(() => {
@@ -43,6 +44,11 @@ function FamilyDetailsForm() {
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
+    
+    // Mark as draft if user is editing and form was pending
+    if (formStatus === 'Pending') {
+      setFormStatus('Draft')
+    }
   }
 
   const handleMaritalStatusChange = (e) => {
@@ -59,6 +65,11 @@ function FamilyDetailsForm() {
         children: []
       })
     }))
+    
+    // Mark as draft if user is editing and form was pending
+    if (formStatus === 'Pending') {
+      setFormStatus('Draft')
+    }
   }
 
   const handleAddChild = () => {
@@ -117,6 +128,25 @@ function FamilyDetailsForm() {
     // })
   }
 
+  const handleBackClick = () => {
+    if (formStatus === 'Draft') {
+      setShowExitBanner(true)
+    } else {
+      navigate('/candidate/dashboard')
+    }
+  }
+
+  const handleSaveAndExit = () => {
+    handleSaveAsDraft()
+    setTimeout(() => {
+      navigate('/candidate/dashboard')
+    }, 500)
+  }
+
+  const handleLeaveWithoutSaving = () => {
+    navigate('/candidate/dashboard')
+  }
+
   const isReadOnly = formStatus === 'Approved'
   const isMarried = formData.maritalStatus === 'Married'
 
@@ -124,7 +154,7 @@ function FamilyDetailsForm() {
     <div className="family-details-form">
       {/* Header Bar */}
       <div className="form-header-bar">
-        <button className="back-button" onClick={() => navigate(-1)}>
+        <button className="back-button" onClick={handleBackClick}>
           ← Back
         </button>
         <h1 className="form-title">Family Details</h1>
@@ -132,6 +162,19 @@ function FamilyDetailsForm() {
           {formStatus}
         </span>
       </div>
+
+      {/* Exit Confirmation Banner */}
+      {showExitBanner && (
+        <div className="exit-banner">
+          <span>You have unsaved changes. </span>
+          <button className="save-exit-button" onClick={handleSaveAndExit}>
+            Save as Draft
+          </button>
+          <button className="leave-button" onClick={handleLeaveWithoutSaving}>
+            Leave without saving
+          </button>
+        </div>
+      )}
 
       {/* Approved Lock Banner */}
       {isReadOnly && (

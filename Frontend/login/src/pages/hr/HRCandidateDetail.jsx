@@ -81,7 +81,12 @@ function HRCandidateDetail() {
     <div>
       {/* Breadcrumb */}
       <div className="hr-breadcrumb">
-        <Link to="/hr/candidates">Candidates</Link> &gt; {candidateInfo.name}
+        <button 
+          onClick={() => navigate('/hr/candidates')} 
+          style={{background: 'none', border: 'none', color: '#2196b6', cursor: 'pointer', textDecoration: 'underline', padding: 0, font: 'inherit'}}
+        >
+          Candidates
+        </button> &gt; {candidateInfo.name}
       </div>
 
       {/* Candidate Info Header */}

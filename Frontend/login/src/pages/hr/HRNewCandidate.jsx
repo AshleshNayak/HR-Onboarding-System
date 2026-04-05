@@ -142,7 +142,12 @@ function HRNewCandidate() {
     <div>
       {/* Breadcrumb */}
       <div className="hr-breadcrumb">
-        <Link to="/hr/candidates">Candidates</Link> &gt; New Candidate
+        <button 
+          onClick={() => navigate('/hr/candidates')} 
+          style={{background: 'none', border: 'none', color: '#2196b6', cursor: 'pointer', textDecoration: 'underline', padding: 0, font: 'inherit'}}
+        >
+          Candidates
+        </button> &gt; New Candidate
       </div>
 
       {/* Form Card */}

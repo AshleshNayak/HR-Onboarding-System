@@ -84,6 +84,52 @@
   font-weight: 500;
 }
 
+/* Exit Confirmation Banner */
+.exit-banner {
+  background-color: #fff3cd;
+  border-bottom: 1px solid #ffc107;
+  color: #333;
+  padding: 12px 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.save-exit-button {
+  padding: 8px 16px;
+  background-color: #2196b6;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+
+.save-exit-button:hover {
+  background-color: #1976a0;
+}
+
+.leave-button {
+  padding: 8px 16px;
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  font-family: 'Inter', sans-serif;
+}
+
+.leave-button:hover {
+  color: #333;
+}
+
 /* Main Content */
 .form-content {
   max-width: 800px;

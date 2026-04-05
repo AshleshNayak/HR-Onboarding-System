@@ -27,6 +27,7 @@ function PersonalInfoForm() {
   
   const [errors, setErrors] = useState({})
   const [toast, setToast] = useState({ show: false, message: '' })
+  const [showExitBanner, setShowExitBanner] = useState(false)
 
   const indianStates = [
     'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh',
@@ -69,6 +70,11 @@ function PersonalInfoForm() {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
     
+    // Mark as draft if user is editing and form was pending
+    if (formStatus === 'Pending') {
+      setFormStatus('Draft')
+    }
+    
     // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }))
@@ -78,6 +84,11 @@ function PersonalInfoForm() {
   const handleFileChange = (e) => {
     const file = e.target.files[0]
     if (file) {
+      // Mark as draft if user is editing and form was pending
+      if (formStatus === 'Pending') {
+        setFormStatus('Draft')
+      }
+      
       const reader = new FileReader()
       reader.onloadend = () => {
         setFormData(prev => ({
@@ -159,6 +170,25 @@ function PersonalInfoForm() {
     // })
   }
 
+  const handleBackClick = () => {
+    if (formStatus === 'Draft') {
+      setShowExitBanner(true)
+    } else {
+      navigate('/candidate/dashboard')
+    }
+  }
+
+  const handleSaveAndExit = () => {
+    handleSaveAsDraft()
+    setTimeout(() => {
+      navigate('/candidate/dashboard')
+    }, 500)
+  }
+
+  const handleLeaveWithoutSaving = () => {
+    navigate('/candidate/dashboard')
+  }
+
   const handleSubmit = () => {
     if (!validateForm()) {
       return
@@ -182,7 +212,7 @@ function PersonalInfoForm() {
     <div className="personal-info-form">
       {/* Header Bar */}
       <div className="form-header-bar">
-        <button className="back-button" onClick={() => navigate(-1)}>
+        <button className="back-button" onClick={handleBackClick}>
           ← Back
         </button>
         <h1 className="form-title">Personal Information</h1>
@@ -190,6 +220,19 @@ function PersonalInfoForm() {
           {formStatus}
         </span>
       </div>
+
+      {/* Exit Confirmation Banner */}
+      {showExitBanner && (
+        <div className="exit-banner">
+          <span>You have unsaved changes. </span>
+          <button className="save-exit-button" onClick={handleSaveAndExit}>
+            Save as Draft
+          </button>
+          <button className="leave-button" onClick={handleLeaveWithoutSaving}>
+            Leave without saving
+          </button>
+        </div>
+      )}
 
       {/* Approved Lock Banner */}
       {isReadOnly && (
