@@ -1,0 +1,94 @@
+/* IndividualTraitsForm Component-Specific Styles */
+
+.traits-intro {
+  background: #e3f2fd;
+  border-left: 4px solid #2196b6;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  color: #1565c0;
+  font-weight: 500;
+  border-radius: 4px;
+}
+
+.traits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.trait-item {
+  background: white;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: border-color 0.2s;
+}
+
+.trait-item.error {
+  border-color: #d32f2f;
+}
+
+.trait-item:hover {
+  border-color: #2196b6;
+}
+
+.trait-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.trait-icon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.trait-text {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+.trait-options {
+  display: flex;
+  gap: 24px;
+}
+
+.trait-readonly {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2196b6;
+  padding: 8px 16px;
+  background: #f5f5f5;
+  border-radius: 4px;
+}
+
+.trait-error {
+  font-size: 13px;
+  color: #d32f2f;
+  margin-top: 8px;
+  width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .trait-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .trait-options {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .trait-readonly {
+    align-self: flex-start;
+  }
+}

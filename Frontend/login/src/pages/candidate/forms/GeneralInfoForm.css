@@ -1,0 +1,93 @@
+/* GeneralInfoForm Component-Specific Styles */
+
+.references-section {
+  margin-top: 8px;
+}
+
+.reference-item {
+  background: #fafafa;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.reference-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.reference-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.remove-reference-btn {
+  background: none;
+  border: 1px solid #d32f2f;
+  color: #d32f2f;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.remove-reference-btn:hover {
+  background: #d32f2f;
+  color: white;
+}
+
+.add-reference-section {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.add-reference-btn {
+  background: white;
+  border: 2px dashed #2196b6;
+  color: #2196b6;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.add-reference-btn:hover {
+  background: #e3f2fd;
+  border-color: #1976a2;
+  color: #1976a2;
+}
+
+.max-references-message {
+  padding: 12px;
+  color: #666;
+  font-size: 14px;
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .reference-item {
+    padding: 16px;
+  }
+
+  .reference-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .remove-reference-btn {
+    align-self: flex-end;
+  }
+}

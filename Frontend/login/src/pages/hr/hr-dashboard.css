@@ -1,0 +1,761 @@
+/* HR Dashboard Layout */
+.hr-dashboard {
+  display: flex;
+  height: 100vh;
+  font-family: "Inter", sans-serif;
+  background: #f4f6f9;
+}
+
+/* Sidebar */
+.hr-sidebar {
+  width: 220px;
+  background: #1a2f5a;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  z-index: 100;
+}
+
+.hr-sidebar-header {
+  padding: 24px 20px;
+}
+
+.hr-app-name {
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.hr-nav {
+  flex: 1;
+  padding: 12px 0;
+}
+
+.hr-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+  font-size: 14px;
+  background: none;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  width: 100%;
+  text-align: left;
+}
+
+.hr-nav-item:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.hr-nav-item.active {
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  border-left-color: #2196b6;
+}
+
+.hr-nav-icon {
+  font-size: 18px;
+}
+
+.hr-sidebar-footer {
+  padding: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hr-user-info {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.hr-user-role {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+.hr-logout-btn {
+  width: 100%;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  margin-top: 12px;
+  transition: all 0.2s;
+}
+
+.hr-logout-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Main Content Area */
+.hr-main {
+  margin-left: 220px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Top Bar */
+.hr-topbar {
+  height: 60px;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.hr-topbar-title {
+  font-weight: 700;
+  font-size: 20px;
+  color: #1a2f5a;
+  margin: 0;
+}
+
+.hr-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.hr-search-input {
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  width: 250px;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.hr-search-input:focus {
+  border-color: #2196b6;
+}
+
+.hr-bell-icon {
+  font-size: 20px;
+  color: #666;
+  cursor: pointer;
+  position: relative;
+}
+
+.hr-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #2196b6;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* Content Area */
+.hr-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  background: #f4f6f9;
+}
+
+/* Dashboard Home Stats Cards */
+.hr-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.hr-stat-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-left: 4px solid;
+  transition: transform 0.2s;
+}
+
+.hr-stat-card:hover {
+  transform: translateY(-2px);
+}
+
+.hr-stat-card.blue {
+  border-left-color: #2196b6;
+}
+
+.hr-stat-card.yellow {
+  border-left-color: #f9a825;
+}
+
+.hr-stat-card.green {
+  border-left-color: #43a047;
+}
+
+.hr-stat-card.teal {
+  border-left-color: #00acc1;
+}
+
+.hr-stat-icon {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.hr-stat-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a2f5a;
+  margin: 8px 0;
+}
+
+.hr-stat-label {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Candidate List */
+.hr-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 16px;
+}
+
+.hr-filters {
+  display: flex;
+  gap: 12px;
+  flex: 1;
+}
+
+.hr-filter-input,
+.hr-filter-select {
+  padding: 10px 14px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  background: white;
+}
+
+.hr-filter-input {
+  flex: 1;
+  max-width: 300px;
+}
+
+.hr-filter-select {
+  min-width: 150px;
+}
+
+.hr-add-btn {
+  padding: 10px 20px;
+  background: #2196b6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.hr-add-btn:hover {
+  background: #1976a3;
+}
+
+.hr-table-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.hr-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.hr-table thead {
+  background: #f8f9fa;
+}
+
+.hr-table th {
+  padding: 16px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.hr-table td {
+  padding: 16px;
+  border-top: 1px solid #f0f0f0;
+  font-size: 14px;
+  color: #333;
+}
+
+.hr-table tbody tr {
+  transition: background 0.2s;
+}
+
+.hr-table tbody tr:hover {
+  background: #f8f9fa;
+}
+
+.hr-progress-bar-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hr-progress-bar {
+  width: 100px;
+  height: 6px;
+  background: #e0e0e0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.hr-progress-fill {
+  height: 100%;
+  background: #2196b6;
+  transition: width 0.3s;
+}
+
+.hr-progress-text {
+  font-size: 13px;
+  color: #666;
+  min-width: 35px;
+}
+
+.hr-status-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.hr-status-badge.not-started {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.hr-status-badge.in-progress {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.hr-status-badge.submitted {
+  background: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.hr-status-badge.approved {
+  background: #e8f5e9;
+  color: #388e3c;
+}
+
+.hr-status-badge.rejected {
+  background: #ffebee;
+  color: #d32f2f;
+}
+
+.hr-view-btn {
+  padding: 6px 16px;
+  background: #f0f0f0;
+  color: #333;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hr-view-btn:hover {
+  background: #e0e0e0;
+}
+
+.hr-pagination {
+  padding: 16px;
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* Candidate Detail */
+.hr-breadcrumb {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.hr-breadcrumb a {
+  color: #2196b6;
+  text-decoration: none;
+}
+
+.hr-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.hr-info-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.hr-candidate-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.hr-candidate-name {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a2f5a;
+  margin: 0 0 12px 0;
+}
+
+.hr-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.hr-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hr-info-label {
+  font-size: 12px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.hr-info-value {
+  font-size: 15px;
+  color: #333;
+  font-weight: 500;
+}
+
+.hr-tabs {
+  display: flex;
+  gap: 8px;
+  border-bottom: 2px solid #f0f0f0;
+  margin-bottom: 24px;
+}
+
+.hr-tab {
+  padding: 12px 24px;
+  background: none;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s;
+}
+
+.hr-tab:hover {
+  color: #2196b6;
+}
+
+.hr-tab.active {
+  color: #2196b6;
+}
+
+.hr-tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #2196b6;
+}
+
+.hr-tab-content {
+  min-height: 400px;
+}
+
+/* Form Status Grid */
+.hr-forms-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.hr-approve-all-btn {
+  padding: 10px 20px;
+  background: #2196b6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.hr-approve-all-btn:hover {
+  background: #1976a3;
+}
+
+.hr-forms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.hr-form-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-left: 4px solid #e0e0e0;
+  transition: all 0.2s;
+}
+
+.hr-form-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.hr-form-card.not-started {
+  border-left-color: #90caf9;
+}
+
+.hr-form-card.in-progress {
+  border-left-color: #ffb74d;
+}
+
+.hr-form-card.submitted {
+  border-left-color: #ba68c8;
+}
+
+.hr-form-card.approved {
+  border-left-color: #66bb6a;
+}
+
+.hr-form-card.rejected {
+  border-left-color: #ef5350;
+}
+
+.hr-form-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a2f5a;
+  margin-bottom: 12px;
+}
+
+.hr-form-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.hr-action-btn {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.hr-action-btn.approve {
+  background: #e8f5e9;
+  color: #388e3c;
+}
+
+.hr-action-btn.approve:hover {
+  background: #c8e6c9;
+}
+
+.hr-action-btn.reject {
+  background: #ffebee;
+  color: #d32f2f;
+}
+
+.hr-action-btn.reject:hover {
+  background: #ffcdd2;
+}
+
+.hr-action-btn.request {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.hr-action-btn.request:hover {
+  background: #ffe0b2;
+}
+
+/* HR Verification Form */
+.hr-verification-form {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.hr-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.hr-form-grid.full {
+  grid-template-columns: 1fr;
+}
+
+.hr-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hr-form-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.hr-form-input,
+.hr-form-textarea {
+  padding: 10px 14px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: "Inter", sans-serif;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.hr-form-input:focus,
+.hr-form-textarea:focus {
+  border-color: #2196b6;
+}
+
+.hr-form-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.hr-save-btn {
+  padding: 12px 24px;
+  background: #2196b6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.hr-save-btn:hover {
+  background: #1976a3;
+}
+
+/* Approval History Timeline */
+.hr-timeline {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.hr-timeline-item {
+  display: flex;
+  gap: 16px;
+  padding: 16px 0;
+  position: relative;
+}
+
+.hr-timeline-item:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 40px;
+  bottom: -16px;
+  width: 2px;
+  background: #e0e0e0;
+}
+
+.hr-timeline-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #2196b6;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.hr-timeline-content {
+  flex: 1;
+}
+
+.hr-timeline-action {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a2f5a;
+  margin-bottom: 4px;
+}
+
+.hr-timeline-meta {
+  font-size: 13px;
+  color: #666;
+}
+
+.hr-timeline-by {
+  font-weight: 500;
+  color: #333;
+}
