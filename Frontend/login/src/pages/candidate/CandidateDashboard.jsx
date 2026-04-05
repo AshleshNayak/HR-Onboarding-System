@@ -1,8 +1,11 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import usePageTitle from '../../usePageTitle'
 import './CandidateDashboard.css'
 
 function CandidateDashboard() {
+  usePageTitle("My Dashboard | MTL HR Onboard");
+  
   const navigate = useNavigate()
   
   // TODO: Replace mock data with GET /api/candidates/:id on component mount

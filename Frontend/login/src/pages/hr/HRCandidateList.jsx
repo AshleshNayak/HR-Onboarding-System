@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import usePageTitle from '../../usePageTitle'
 
 function HRCandidateList() {
+  usePageTitle("Candidates | MTL HR Onboard");
+  
   const navigate = useNavigate()
   const [searchTerm, setSearchTerm] = useState('')
   const [businessUnit, setBusinessUnit] = useState('')

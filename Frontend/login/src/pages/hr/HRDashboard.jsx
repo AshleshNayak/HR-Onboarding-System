@@ -1,8 +1,11 @@
 import { useState } from 'react'
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
+import usePageTitle from '../../usePageTitle'
 import './hr-dashboard.css'
 
 function HRDashboard() {
+  usePageTitle("HR Dashboard | MTL HR Onboard");
+  
   const navigate = useNavigate()
   const location = useLocation()
   const [currentPage, setCurrentPage] = useState('Dashboard')

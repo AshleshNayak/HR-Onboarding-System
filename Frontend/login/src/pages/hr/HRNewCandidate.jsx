@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
+import usePageTitle from '../../usePageTitle'
 import './HRNewCandidate.css'
 
 function HRNewCandidate() {
+  usePageTitle("New Candidate | MTL HR Onboard");
+  
   const navigate = useNavigate()
 
   // Generate initial employee code

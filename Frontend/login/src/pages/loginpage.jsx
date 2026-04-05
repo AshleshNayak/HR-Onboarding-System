@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import usePageTitle from "../usePageTitle";
 
 /**
  * LOGIN PAGE — HR Onboarding System
@@ -217,6 +218,8 @@ const Logo    = () => <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12
 const STEPS = ["Details", "Verify", "Done"];
 
 export default function LoginPage() {
+  usePageTitle("Login | MTL HR Onboard");
+  
   const [tab,       setTab]       = useState("candidate");
   const [mode,      setMode]      = useState("login");
   const [step,      setStep]      = useState(1);

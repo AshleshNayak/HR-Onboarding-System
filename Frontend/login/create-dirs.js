@@ -5,7 +5,8 @@ const dirs = [
   'src/components',
   'src/pages/candidate',
   'src/pages/candidate/forms',
-  'src/pages/hr'
+  'src/pages/hr',
+  'src/hooks'
 ];
 
 dirs.forEach(dir => {

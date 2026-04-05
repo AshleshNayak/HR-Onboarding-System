@@ -1,6 +1,9 @@
 import { useNavigate } from 'react-router-dom'
+import usePageTitle from '../../../usePageTitle'
 
 function ContactInfoForm() {
+  usePageTitle("Contact Information | MTL HR Onboard");
+  
   const navigate = useNavigate()
 
   return (

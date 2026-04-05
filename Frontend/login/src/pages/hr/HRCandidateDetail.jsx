@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
+import usePageTitle from '../../usePageTitle'
 
 function HRCandidateDetail() {
+  usePageTitle("Candidate Detail | MTL HR Onboard");
+  
   const { candidateId } = useParams()
   const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState('form-status')

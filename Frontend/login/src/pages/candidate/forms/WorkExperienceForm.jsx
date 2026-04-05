@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import usePageTitle from '../../../usePageTitle'
 import './forms-shared.css'
 import './WorkExperienceForm.css'
 
 function WorkExperienceForm() {
+  usePageTitle("Work Experience | MTL HR Onboard");
+  
   const navigate = useNavigate()
   
   const [formStatus, setFormStatus] = useState('Pending')
