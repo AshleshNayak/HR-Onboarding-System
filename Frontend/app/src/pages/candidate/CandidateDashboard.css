@@ -1,0 +1,241 @@
+.candidate-dashboard {
+  min-height: 100vh;
+  background-color: var(--bg-page);
+}
+
+/* Hero Banner */
+.hero-banner {
+  width: 100%;
+  background: linear-gradient(135deg, #1a3a6b 0%, #0ea5e9 100%);
+  padding: 60px 0;
+  position: relative;
+}
+
+.hero-content {
+  text-align: center;
+  color: white;
+}
+
+.hero-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.hero-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  color: white;
+}
+
+.hero-subtitle {
+  font-size: 16px;
+  margin: 0;
+  color: white;
+  opacity: 0.95;
+}
+
+/* Info Bar */
+.info-bar {
+  background-color: white;
+  border-bottom: 2px solid var(--border);
+  padding: 16px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+}
+
+.info-label {
+  color: var(--text-primary);
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.info-value {
+  color: var(--primary-light);
+  font-weight: 600;
+}
+
+/* Profile Completion */
+.profile-completion {
+  background-color: white;
+  margin: 24px 40px;
+  padding: 20px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+}
+
+.completion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.completion-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.completion-percentage {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary-light);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #1a3a6b, #0ea5e9);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+/* Forms Grid */
+.forms-grid {
+  padding: 0 40px 40px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* Form Card */
+.form-card {
+  background-color: white;
+  border-radius: var(--radius-md);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.form-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.card-icon {
+  font-size: 28px;
+}
+
+.status-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 12px;
+}
+
+.status-pending {
+  background-color: #fee;
+  color: var(--danger);
+}
+
+.status-draft {
+  background-color: #fef3e0;
+  color: var(--warning);
+}
+
+.status-submitted {
+  background-color: #e6f7ed;
+  color: var(--success);
+}
+
+.status-approved {
+  background-color: var(--primary-pale);
+  color: var(--info);
+}
+
+.status-rejected {
+  background-color: #ffe8d6;
+  color: #bf360c;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 12px 0 4px 0;
+  color: var(--primary);
+}
+
+.card-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 4px 0 0 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .forms-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .forms-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .info-bar {
+    padding: 16px 24px;
+  }
+
+  .profile-completion {
+    margin: 24px 24px;
+  }
+
+  .forms-grid {
+    padding: 0 24px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-banner {
+    padding: 40px 20px;
+  }
+
+  .hero-title {
+    font-size: 24px;
+  }
+
+  .hero-subtitle {
+    font-size: 14px;
+  }
+
+  .info-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 16px 20px;
+  }
+
+  .profile-completion {
+    margin: 20px 20px;
+  }
+
+  .forms-grid {
+    grid-template-columns: 1fr;
+    padding: 0 20px 40px;
+  }
+}
