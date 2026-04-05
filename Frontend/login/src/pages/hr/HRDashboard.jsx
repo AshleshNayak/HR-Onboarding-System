@@ -10,6 +10,11 @@ function HRDashboard() {
   const location = useLocation()
   const [currentPage, setCurrentPage] = useState('Dashboard')
 
+  // Read logged-in user info from localStorage
+  const hrAuth = JSON.parse(localStorage.getItem('hrAuth') || '{}')
+  const userName = hrAuth.name || 'User'
+  const userRole = hrAuth.role || 'Staff'
+
   const isActive = (path) => {
     if (path === '/hr/dashboard' && location.pathname === '/hr/dashboard') {
       return true
@@ -71,8 +76,8 @@ function HRDashboard() {
 
         <div className="hr-sidebar-footer">
           <div className="hr-user-info">
-            Sarah Johnson
-            <div className="hr-user-role">HR Manager</div>
+            {userName}
+            <div className="hr-user-role">{userRole}</div>
           </div>
           <button className="hr-logout-btn" onClick={handleLogout}>
             Logout
@@ -92,7 +97,7 @@ function HRDashboard() {
               placeholder="Search candidates..."
             />
             <span className="hr-bell-icon">🔔</span>
-            <div className="hr-avatar">SJ</div>
+            <div className="hr-avatar">{userName.split(' ').map(n => n[0]).join('').slice(0,2).toUpperCase()}</div>
           </div>
         </header>
 

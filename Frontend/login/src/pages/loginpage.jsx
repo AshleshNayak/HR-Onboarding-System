@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import usePageTitle from "../usePageTitle";
 
 /**
@@ -37,6 +38,21 @@ const DUMMY = {
   phone     : "9876543210",
   password  : "Test@1234",
   confirm   : "Test@1234",
+};
+
+// Mock credentials for development testing
+const MOCK_HR_CREDENTIALS = {
+  "admin": { password: "admin123", role: "Admin", name: "Administrator" },
+  "hruser": { password: "hr123", role: "HR User", name: "Sarah Johnson" },
+  "secmgr": { password: "sec123", role: "Security Manager", name: "Rajesh Kumar" },
+  "secexec": { password: "exec123", role: "Security Executive", name: "Priya Menon" }
+};
+
+const MOCK_CANDIDATE = {
+  code: "CAND-A1B2C3",
+  email: "rahul.sharma@email.com",
+  name: "Rahul Sharma",
+  refNumber: "MPI-REF-2026-0145"
 };
 
 const css = `
@@ -200,6 +216,21 @@ const css = `
   .link-row .inp{border-radius:9px 0 0 9px;border-right:none}
   .link-go{padding:0 14px;border:1.5px solid #1976d2;border-radius:0 9px 9px 0;background:#1976d2;color:#fff;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background 0.2s}
   .link-go:hover{background:#1565c0}
+
+  /* demo credentials card */
+  .demo-card{background:#f5f5f5;border:1px solid #e0e0e0;border-radius:10px;padding:12px 14px;margin-top:16px;position:relative}
+  .demo-badge{position:absolute;top:8px;right:8px;font-size:9px;font-weight:800;color:#666;background:#e0e0e0;padding:2px 7px;border-radius:10px;letter-spacing:0.5px}
+  .demo-title{font-size:11px;font-weight:800;color:#424242;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.3px}
+  .demo-section{margin-bottom:10px}
+  .demo-section:last-child{margin-bottom:0}
+  .demo-subtitle{font-size:10px;font-weight:700;color:#666;margin-bottom:4px}
+  .demo-table{width:100%;border-collapse:collapse}
+  .demo-table td{padding:3px 0;font-size:11px}
+  .demo-table td:first-child{color:#757575;font-weight:600;padding-right:12px;width:40%}
+  .demo-table td:nth-child(2){color:#424242;font-family:'Courier New',monospace;font-size:10.5px;font-weight:600}
+  .demo-table td:last-child{color:#424242;font-family:'Courier New',monospace;font-size:10.5px;font-weight:600}
+  .demo-link{color:#1976d2;font-family:'Courier New',monospace;font-size:9.5px;word-break:break-all;display:block}
+  .demo-simple{color:#424242;font-family:'Courier New',monospace;font-size:10.5px;margin-top:2px}
 `;
 
 /* icons */
@@ -219,6 +250,7 @@ const STEPS = ["Details", "Verify", "Done"];
 
 export default function LoginPage() {
   usePageTitle("Login | MTL HR Onboard");
+  const navigate = useNavigate();
   
   const [tab,       setTab]       = useState("candidate");
   const [mode,      setMode]      = useState("login");
@@ -266,9 +298,19 @@ export default function LoginPage() {
 
   // fill dummy data with one click
   const fillDummy = () => {
-    setSig({ ...DUMMY });
-    setErrors({});
-    toast$("Test data filled! Click Continue →", "ok");
+    if (tab === "candidate") {
+      setCCode(MOCK_CANDIDATE.code);
+      setCEmail(MOCK_CANDIDATE.email);
+      toast$("Test data filled! Click Access Portal →", "ok");
+    } else if (tab === "hr") {
+      setHrUser("hruser");
+      setHrPass("hr123");
+      toast$("Test data filled! Click Sign In →", "ok");
+    } else {
+      setSig({ ...DUMMY });
+      setErrors({});
+      toast$("Test data filled! Click Continue →", "ok");
+    }
   };
 
   // validate signup step 1
@@ -370,14 +412,6 @@ export default function LoginPage() {
               {/* ── CANDIDATE ── */}
               {tab === "candidate" && (
                 <div className="section">
-                  {/* dummy data reference banner */}
-                  <div className="dummy-banner">
-                    <div className="dummy-banner-title">🧪 Test Credentials</div>
-                    <div className="dummy-row"><span className="dummy-key">Candidate Code</span><span className="dummy-val">CAND-A1B2C3</span></div>
-                    <div className="dummy-row"><span className="dummy-key">Email</span><span className="dummy-val">rahul.sharma@gmail.com</span></div>
-                    <div className="dummy-row"><span className="dummy-key">Unique Link</span><span className="dummy-val">https://hrboard.app/onboard?ref=CAND-A1B2C3</span></div>
-                  </div>
-
                   <div className="ftitle">Candidate Access</div>
                   <div className="fdesc">Enter your Candidate Code &amp; Email — or paste your Unique Link sent by HR.</div>
 
@@ -395,7 +429,7 @@ export default function LoginPage() {
                     <label className="fl">Registered Email</label>
                     <div className="fw">
                       <span className="fi"><IMail /></span>
-                      <input className="inp" type="email" placeholder="rahul.sharma@gmail.com"
+                      <input className="inp" type="email" placeholder="rahul.sharma@email.com"
                         value={cEmail} onChange={e => setCEmail(e.target.value)} />
                     </div>
                     <div className="db-hint">tbl_CandidateMaster → Email</div>
@@ -417,10 +451,38 @@ export default function LoginPage() {
                     <div className="db-hint">tbl_CandidateMaster → UniqueLink</div>
                   </div>
 
+                  <button type="button" className="btn-ghost" style={{marginBottom:0}} onClick={fillDummy}>
+                    <IWand /> Fill with Test Data
+                  </button>
+
                   <button className="btn"
                     onClick={() => {
+                      // TODO: Replace with POST /api/auth/candidate
                       if (!cCode && !cLink) { toast$("Enter Candidate Code or paste Unique Link"); return; }
-                      toast$("Access granted — loading onboarding portal!", "ok");
+                      
+                      // Check for valid candidate code + email
+                      if (cCode === MOCK_CANDIDATE.code && cEmail === MOCK_CANDIDATE.email) {
+                        localStorage.setItem('candidateAuth', JSON.stringify({
+                          code: MOCK_CANDIDATE.code,
+                          name: MOCK_CANDIDATE.name,
+                          refNumber: MOCK_CANDIDATE.refNumber
+                        }));
+                        navigate('/candidate/dashboard');
+                        return;
+                      }
+                      
+                      // Check for unique link
+                      if (cLink && cLink.includes(MOCK_CANDIDATE.code)) {
+                        localStorage.setItem('candidateAuth', JSON.stringify({
+                          code: MOCK_CANDIDATE.code,
+                          name: MOCK_CANDIDATE.name,
+                          refNumber: MOCK_CANDIDATE.refNumber
+                        }));
+                        navigate('/candidate/dashboard');
+                        return;
+                      }
+                      
+                      toast$("Candidate not found");
                     }}>
                     Access My Onboarding Portal
                   </button>
@@ -433,13 +495,6 @@ export default function LoginPage() {
               {/* ── HR LOGIN ── */}
               {tab === "hr" && (
                 <div className="section">
-                  <div className="dummy-banner">
-                    <div className="dummy-banner-title">🧪 Test Credentials</div>
-                    <div className="dummy-row"><span className="dummy-key">Username</span><span className="dummy-val">hr.admin</span></div>
-                    <div className="dummy-row"><span className="dummy-key">Password</span><span className="dummy-val">HRAdmin@2024</span></div>
-                    <div className="dummy-row"><span className="dummy-key">Login Type</span><span className="dummy-val">Custom</span></div>
-                  </div>
-
                   <div className="ftitle">HR &amp; Staff Login</div>
                   <div className="fdesc">Access based on your assigned role in the system.</div>
 
@@ -466,7 +521,7 @@ export default function LoginPage() {
                     <label className="fl">Username</label>
                     <div className="fw">
                       <span className="fi"><IUser /></span>
-                      <input className="inp" placeholder="e.g. hr.admin"
+                      <input className="inp" placeholder="e.g. hruser"
                         value={hrUser} onChange={e => setHrUser(e.target.value)} />
                     </div>
                     <div className="db-hint">tbl_UserMaster → Username</div>
@@ -483,11 +538,29 @@ export default function LoginPage() {
                     <div className="db-hint">{loginType === "LDAP" ? "PasswordHash = NULL (LDAP auth)" : "tbl_UserMaster → PasswordHash"}</div>
                   </div>
 
+                  <button type="button" className="btn-ghost" style={{marginBottom:8,marginTop:0}} onClick={fillDummy}>
+                    <IWand /> Fill with Test Data
+                  </button>
+
                   <div className="forgot"><a href="#">Forgot password?</a></div>
                   <button className="btn"
                     onClick={() => {
+                      // TODO: Replace with POST /api/auth/login
                       if (!hrUser) { toast$("Enter your username"); return; }
-                      toast$(loginType === "LDAP" ? "Redirecting to LDAP server…" : "HR login successful!", "ok");
+                      if (!hrPass) { toast$("Enter your password"); return; }
+                      
+                      // Check mock credentials
+                      const cred = MOCK_HR_CREDENTIALS[hrUser.toLowerCase()];
+                      if (cred && cred.password === hrPass) {
+                        localStorage.setItem('hrAuth', JSON.stringify({
+                          username: hrUser,
+                          role: cred.role,
+                          name: cred.name
+                        }));
+                        navigate('/hr/dashboard');
+                      } else {
+                        toast$("Invalid username or password");
+                      }
                     }}>
                     <IShield style={{width:14,height:14,stroke:"white",fill:"none",strokeWidth:2}}/>
                     Sign In as {loginType === "LDAP" ? "Staff (LDAP)" : "Staff"}
@@ -627,6 +700,44 @@ export default function LoginPage() {
             </div>
           )}
         </div>
+
+        {/* Demo Credentials Card - Only in Development */}
+        {import.meta.env.DEV && mode === "login" && (
+          <div className="demo-card">
+            <div className="demo-badge">DEMO ONLY</div>
+            <div className="demo-title">Demo Credentials</div>
+            
+            {tab === "hr" && (
+              <div className="demo-section">
+                <div className="demo-subtitle">HR Staff logins (for Staff Login tab):</div>
+                <table className="demo-table">
+                  <tbody>
+                    <tr><td>Admin</td><td>admin</td><td>admin123</td></tr>
+                    <tr><td>HR User</td><td>hruser</td><td>hr123</td></tr>
+                    <tr><td>Security Manager</td><td>secmgr</td><td>sec123</td></tr>
+                    <tr><td>Security Executive</td><td>secexec</td><td>exec123</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            )}
+            
+            {tab === "candidate" && (
+              <>
+                <div className="demo-section">
+                  <div className="demo-subtitle">Candidate login (for Candidate Access tab):</div>
+                  <div style={{paddingLeft:'4px'}}>
+                    <div style={{fontSize:'10px',color:'#666',marginBottom:'2px'}}>Candidate Code: <span className="demo-simple" style={{display:'inline'}}>CAND-A1B2C3</span></div>
+                    <div style={{fontSize:'10px',color:'#666',marginBottom:'2px'}}>Email: <span className="demo-simple" style={{display:'inline'}}>rahul.sharma@email.com</span></div>
+                  </div>
+                </div>
+                <div className="demo-section">
+                  <div className="demo-subtitle">Or Unique Link:</div>
+                  <div className="demo-link">https://hrboard.app/onboard?ref=CAND-A1B2C3</div>
+                </div>
+              </>
+            )}
+          </div>
+        )}
 
         {toast.msg && <div className={`toast ${toast.type}`}>{toast.msg}</div>}
       </div>

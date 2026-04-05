@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import usePageTitle from '../../usePageTitle'
+import { mockCandidates } from '../../mockCandidates'
 
 function HRCandidateList() {
   usePageTitle("Candidates | MTL HR Onboard");
@@ -11,80 +12,15 @@ function HRCandidateList() {
   const [statusFilter, setStatusFilter] = useState('')
 
   // TODO: Replace with API call
-  const mockCandidates = [
-    {
-      id: 1,
-      refNo: 'MTL-2024-001',
-      name: 'John Smith',
-      designation: 'Software Engineer',
-      businessUnit: 'Technology',
-      completion: 100,
-      status: 'approved'
-    },
-    {
-      id: 2,
-      refNo: 'MTL-2024-002',
-      name: 'Emma Wilson',
-      designation: 'Product Manager',
-      businessUnit: 'Product',
-      completion: 85,
-      status: 'submitted'
-    },
-    {
-      id: 3,
-      refNo: 'MTL-2024-003',
-      name: 'Michael Chen',
-      designation: 'Data Analyst',
-      businessUnit: 'Analytics',
-      completion: 72,
-      status: 'in-progress'
-    },
-    {
-      id: 4,
-      refNo: 'MTL-2024-004',
-      name: 'Sarah Johnson',
-      designation: 'UX Designer',
-      businessUnit: 'Design',
-      completion: 45,
-      status: 'in-progress'
-    },
-    {
-      id: 5,
-      refNo: 'MTL-2024-005',
-      name: 'David Brown',
-      designation: 'DevOps Engineer',
-      businessUnit: 'Technology',
-      completion: 90,
-      status: 'submitted'
-    },
-    {
-      id: 6,
-      refNo: 'MTL-2024-006',
-      name: 'Lisa Anderson',
-      designation: 'Marketing Manager',
-      businessUnit: 'Marketing',
-      completion: 30,
-      status: 'in-progress'
-    },
-    {
-      id: 7,
-      refNo: 'MTL-2024-007',
-      name: 'James Taylor',
-      designation: 'Sales Executive',
-      businessUnit: 'Sales',
-      completion: 15,
-      status: 'not-started'
-    },
-    {
-      id: 8,
-      refNo: 'MTL-2024-008',
-      name: 'Maria Garcia',
-      designation: 'HR Specialist',
-      businessUnit: 'Human Resources',
-      completion: 100,
-      status: 'approved'
-    }
-  ]
+  const candidates = mockCandidates.map(c => ({
+    id: c.id,
+    refNo: c.refNumber,
+    name: c.name,
+    designation: c.designation,
+    businessUnit: c.businessUnit,
+    completion: c.completionPercent,
+    status: c.status
+  }))
 
   const getStatusBadge = (status) => {
     const statusMap = {
@@ -159,7 +95,7 @@ function HRCandidateList() {
             </tr>
           </thead>
           <tbody>
-            {mockCandidates.map((candidate) => (
+            {candidates.map((candidate) => (
               <tr key={candidate.id}>
                 <td>{candidate.refNo}</td>
                 <td>{candidate.name}</td>

@@ -8,10 +8,15 @@ function CandidateDashboard() {
   
   const navigate = useNavigate()
   
+  // Read actual candidate info from localStorage
+  const candidateAuth = JSON.parse(localStorage.getItem('candidateAuth') || '{}')
+  const candidateName = candidateAuth.name || "Candidate"
+  const candidateRefNumber = candidateAuth.refNumber || "N/A"
+  
   // TODO: Replace mock data with GET /api/candidates/:id on component mount
   const [candidateInfo] = useState({
-    name: "Raghavendra Nayak",
-    referenceNumber: "MPI-REF-2026-0145",
+    name: candidateName,
+    referenceNumber: candidateRefNumber,
     forms: [
       { id: "personal-info", title: "Personal Information", subtitle: "Provide your personal details", icon: "👤", status: "Draft", route: "/candidate/form/personal-info" },
       { id: "contact-info", title: "Contact Information", subtitle: "Phone, email and address", icon: "📞", status: "Submitted", route: "/candidate/form/contact-info" },
@@ -38,6 +43,11 @@ function CandidateDashboard() {
     navigate(route)
   }
 
+  const handleExitPortal = () => {
+    localStorage.removeItem('candidateAuth')
+    navigate('/login')
+  }
+
   const completionPercentage = calculateCompletionPercentage()
 
   return (
@@ -48,6 +58,27 @@ function CandidateDashboard() {
           <h1 className="hero-title">Congratulations on getting shortlisted!</h1>
           <p className="hero-subtitle">Fill the sections below for a smooth onboarding process.</p>
         </div>
+        <button 
+          onClick={handleExitPortal}
+          style={{
+            position: 'absolute',
+            top: '16px',
+            right: '20px',
+            background: 'rgba(255,255,255,0.25)',
+            border: '1px solid rgba(255,255,255,0.4)',
+            color: '#fff',
+            padding: '6px 14px',
+            borderRadius: '6px',
+            fontSize: '12px',
+            fontWeight: '600',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease'
+          }}
+          onMouseOver={(e) => e.target.style.background = 'rgba(255,255,255,0.35)'}
+          onMouseOut={(e) => e.target.style.background = 'rgba(255,255,255,0.25)'}
+        >
+          Exit Portal →
+        </button>
       </div>
 
       <div className="info-bar">

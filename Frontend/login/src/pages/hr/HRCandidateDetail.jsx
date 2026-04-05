@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import usePageTitle from '../../usePageTitle'
+import { getCandidateById } from '../../mockCandidates'
 
 function HRCandidateDetail() {
   usePageTitle("Candidate Detail | MTL HR Onboard");
@@ -10,28 +11,43 @@ function HRCandidateDetail() {
   const [activeTab, setActiveTab] = useState('form-status')
 
   // TODO: Replace with API call
+  const candidate = getCandidateById(candidateId)
+  
+  if (!candidate) {
+    return (
+      <div style={{padding: '20px', textAlign: 'center'}}>
+        <h2>Candidate not found</h2>
+        <button onClick={() => navigate('/hr/candidates')}>Back to Candidates</button>
+      </div>
+    )
+  }
+
   const candidateInfo = {
-    name: 'Emma Wilson',
-    refNo: 'MTL-2024-002',
-    designation: 'Product Manager',
-    businessUnit: 'Product',
-    dateAdded: 'March 15, 2024'
+    name: candidate.name,
+    refNo: candidate.refNumber,
+    designation: candidate.designation,
+    businessUnit: candidate.businessUnit,
+    dateAdded: new Date(candidate.dateAdded).toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    })
   }
 
   // TODO: Replace with API call
-  const [formStatuses, setFormStatuses] = useState([
-    { id: 1, name: 'Personal Information', status: 'approved' },
-    { id: 2, name: 'Contact Information', status: 'approved' },
-    { id: 3, name: 'Family Details', status: 'submitted' },
-    { id: 4, name: 'Education Details', status: 'submitted' },
-    { id: 5, name: 'Work Experience', status: 'submitted' },
-    { id: 6, name: 'Passport Details', status: 'in-progress' },
-    { id: 7, name: 'Health Information', status: 'in-progress' },
-    { id: 8, name: 'Individual Traits', status: 'not-started' },
-    { id: 9, name: 'General Information', status: 'not-started' },
-    { id: 10, name: 'ESG Declaration', status: 'not-started' },
-    { id: 11, name: 'Documents Upload', status: 'not-started' }
-  ])
+  const [formStatuses, setFormStatuses] = useState(
+    candidate.forms.map((form, index) => {
+      let statusKey = form.status.toLowerCase()
+      // Map form statuses to expected format
+      if (statusKey === 'pending') statusKey = 'not-started'
+      if (statusKey === 'draft') statusKey = 'in-progress'
+      return {
+        id: index + 1,
+        name: form.title,
+        status: statusKey
+      }
+    })
+  )
 
   const getStatusBadge = (status) => {
     const statusMap = {
