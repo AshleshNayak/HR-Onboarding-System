@@ -61,13 +61,17 @@ const css = `
 
   .root {
     min-height: 100vh;
-    background: linear-gradient(150deg, #e3f0fd 0%, #f0f7ff 50%, #daeeff 100%);
-    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, #e8f0fe 0%, #dbeafe 50%, #e0f2fe 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-family: 'Nunito', sans-serif;
-    position: relative; overflow: hidden; padding: 24px;
+    position: relative;
+    overflow: hidden;
+    padding: 24px;
   }
 
-  .blob { position:absolute;border-radius:50%;opacity:0.1;animation:bfloat 9s ease-in-out infinite; }
+  .blob { position:fixed;border-radius:50%;opacity:0.1;animation:bfloat 9s ease-in-out infinite;z-index:0; }
   .b1{width:420px;height:420px;background:#1976d2;top:-140px;left:-110px;animation-delay:0s}
   .b2{width:320px;height:320px;background:#0d47a1;bottom:-90px;right:-70px;animation-delay:2.5s}
   .b3{width:200px;height:200px;background:#42a5f5;top:58%;left:6%;animation-delay:4s}
@@ -75,14 +79,16 @@ const css = `
   @keyframes bfloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-18px) scale(1.04)}}
 
   .card {
-    background:rgba(255,255,255,0.95);
-    border-radius:22px;
-    box-shadow:0 18px 56px rgba(25,118,210,0.13),0 3px 16px rgba(0,0,0,0.05);
-    border:1px solid rgba(255,255,255,0.85);
-    width:100%;max-width:458px;
-    padding:34px 40px 42px;
-    position:relative;z-index:10;
-    animation:card-up 0.55s cubic-bezier(0.16,1,0.3,1) both;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+    border: 1px solid rgba(255,255,255,0.85);
+    width: 480px;
+    max-width: 95vw;
+    padding: 40px;
+    position: relative;
+    z-index: 10;
+    animation: card-up 0.55s cubic-bezier(0.16,1,0.3,1) both;
   }
   @keyframes card-up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 
@@ -218,19 +224,19 @@ const css = `
   .link-go:hover{background:#1565c0}
 
   /* demo credentials card */
-  .demo-card{background:#f5f5f5;border:1px solid #e0e0e0;border-radius:10px;padding:12px 14px;margin-top:16px;position:relative}
-  .demo-badge{position:absolute;top:8px;right:8px;font-size:9px;font-weight:800;color:#666;background:#e0e0e0;padding:2px 7px;border-radius:10px;letter-spacing:0.5px}
-  .demo-title{font-size:11px;font-weight:800;color:#424242;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.3px}
+  .demo-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:14px;margin-top:16px;position:relative;width:100%}
+  .demo-badge{position:absolute;top:10px;right:10px;font-size:10px;font-weight:800;color:#92400e;background:#fef3c7;padding:2px 6px;border-radius:4px;letter-spacing:0.5px}
+  .demo-title{font-size:12px;font-weight:800;color:#424242;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.3px}
   .demo-section{margin-bottom:10px}
   .demo-section:last-child{margin-bottom:0}
   .demo-subtitle{font-size:10px;font-weight:700;color:#666;margin-bottom:4px}
   .demo-table{width:100%;border-collapse:collapse}
-  .demo-table td{padding:3px 0;font-size:11px}
+  .demo-table td{padding:3px 0;font-size:12px}
   .demo-table td:first-child{color:#757575;font-weight:600;padding-right:12px;width:40%}
-  .demo-table td:nth-child(2){color:#424242;font-family:'Courier New',monospace;font-size:10.5px;font-weight:600}
-  .demo-table td:last-child{color:#424242;font-family:'Courier New',monospace;font-size:10.5px;font-weight:600}
-  .demo-link{color:#1976d2;font-family:'Courier New',monospace;font-size:9.5px;word-break:break-all;display:block}
-  .demo-simple{color:#424242;font-family:'Courier New',monospace;font-size:10.5px;margin-top:2px}
+  .demo-table td:nth-child(2){color:#424242;font-family:monospace;font-size:12px;font-weight:600}
+  .demo-table td:last-child{color:#424242;font-family:monospace;font-size:12px;font-weight:600}
+  .demo-link{color:#1976d2;font-family:monospace;font-size:12px;word-break:break-all;display:block}
+  .demo-simple{color:#424242;font-family:monospace;font-size:12px;margin-top:2px}
 `;
 
 /* icons */
@@ -699,45 +705,45 @@ export default function LoginPage() {
               )}
             </div>
           )}
-        </div>
 
-        {/* Demo Credentials Card - Only in Development */}
-        {import.meta.env.DEV && mode === "login" && (
-          <div className="demo-card">
-            <div className="demo-badge">DEMO ONLY</div>
-            <div className="demo-title">Demo Credentials</div>
-            
-            {tab === "hr" && (
-              <div className="demo-section">
-                <div className="demo-subtitle">HR Staff logins (for Staff Login tab):</div>
-                <table className="demo-table">
-                  <tbody>
-                    <tr><td>Admin</td><td>admin</td><td>admin123</td></tr>
-                    <tr><td>HR User</td><td>hruser</td><td>hr123</td></tr>
-                    <tr><td>Security Manager</td><td>secmgr</td><td>sec123</td></tr>
-                    <tr><td>Security Executive</td><td>secexec</td><td>exec123</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            )}
-            
-            {tab === "candidate" && (
-              <>
+          {/* Demo Credentials Card - Only in Development */}
+          {import.meta.env.DEV && mode === "login" && (
+            <div className="demo-card">
+              <div className="demo-badge">DEMO ONLY</div>
+              <div className="demo-title">Demo Credentials</div>
+              
+              {tab === "hr" && (
                 <div className="demo-section">
-                  <div className="demo-subtitle">Candidate login (for Candidate Access tab):</div>
-                  <div style={{paddingLeft:'4px'}}>
-                    <div style={{fontSize:'10px',color:'#666',marginBottom:'2px'}}>Candidate Code: <span className="demo-simple" style={{display:'inline'}}>CAND-A1B2C3</span></div>
-                    <div style={{fontSize:'10px',color:'#666',marginBottom:'2px'}}>Email: <span className="demo-simple" style={{display:'inline'}}>rahul.sharma@email.com</span></div>
+                  <div className="demo-subtitle">HR Staff logins (for Staff Login tab):</div>
+                  <table className="demo-table">
+                    <tbody>
+                      <tr><td>Admin</td><td>admin</td><td>admin123</td></tr>
+                      <tr><td>HR User</td><td>hruser</td><td>hr123</td></tr>
+                      <tr><td>Security Manager</td><td>secmgr</td><td>sec123</td></tr>
+                      <tr><td>Security Executive</td><td>secexec</td><td>exec123</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              )}
+              
+              {tab === "candidate" && (
+                <>
+                  <div className="demo-section">
+                    <div className="demo-subtitle">Candidate login (for Candidate Access tab):</div>
+                    <div style={{paddingLeft:'4px'}}>
+                      <div style={{fontSize:'10px',color:'#666',marginBottom:'2px'}}>Candidate Code: <span className="demo-simple" style={{display:'inline'}}>CAND-A1B2C3</span></div>
+                      <div style={{fontSize:'10px',color:'#666',marginBottom:'2px'}}>Email: <span className="demo-simple" style={{display:'inline'}}>rahul.sharma@email.com</span></div>
+                    </div>
                   </div>
-                </div>
-                <div className="demo-section">
-                  <div className="demo-subtitle">Or Unique Link:</div>
-                  <div className="demo-link">https://hrboard.app/onboard?ref=CAND-A1B2C3</div>
-                </div>
-              </>
-            )}
-          </div>
-        )}
+                  <div className="demo-section">
+                    <div className="demo-subtitle">Or Unique Link:</div>
+                    <div className="demo-link">https://hrboard.app/onboard?ref=CAND-A1B2C3</div>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
+        </div>
 
         {toast.msg && <div className={`toast ${toast.type}`}>{toast.msg}</div>}
       </div>

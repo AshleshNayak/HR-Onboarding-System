@@ -63,21 +63,21 @@ function CandidateDashboard() {
           style={{
             position: 'absolute',
             top: '16px',
-            right: '20px',
-            background: 'rgba(255,255,255,0.25)',
+            right: '24px',
+            background: 'rgba(255,255,255,0.15)',
             border: '1px solid rgba(255,255,255,0.4)',
-            color: '#fff',
-            padding: '6px 14px',
+            color: 'white',
+            padding: '8px 16px',
             borderRadius: '6px',
-            fontSize: '12px',
-            fontWeight: '600',
+            fontSize: '13px',
+            fontWeight: '500',
             cursor: 'pointer',
-            transition: 'all 0.2s ease'
+            transition: 'background 0.2s ease'
           }}
-          onMouseOver={(e) => e.target.style.background = 'rgba(255,255,255,0.35)'}
-          onMouseOut={(e) => e.target.style.background = 'rgba(255,255,255,0.25)'}
+          onMouseOver={(e) => e.target.style.background = 'rgba(255,255,255,0.25)'}
+          onMouseOut={(e) => e.target.style.background = 'rgba(255,255,255,0.15)'}
         >
-          Exit Portal →
+          Exit Portal
         </button>
       </div>
 

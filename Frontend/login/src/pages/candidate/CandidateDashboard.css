@@ -8,6 +8,7 @@
   width: 100%;
   background: linear-gradient(135deg, #1a3a6b 0%, #0ea5e9 100%);
   padding: 60px 0;
+  position: relative;
 }
 
 .hero-content {
